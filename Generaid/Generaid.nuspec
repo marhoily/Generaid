@@ -8,7 +8,7 @@
     <!--<iconUrl>https://raw.githubusercontent.com/marhoily/Generaid/master/NugetIcon.png</iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <summary>Utilities to aid C# code generation in VS</summary>
-    <description>Aids C# code generation when into multiple files involved,
+    <description>Aids C# code generation when multiple files involved,
       and VS *.csproj files need to be kept in sync</description>
     <tags>C# T4 CodeGeneration csproj</tags>
   </metadata>
