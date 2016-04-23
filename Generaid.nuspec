@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Generaid</id>
+    <version>$version$</version>
+    <authors>Ilya Margolin</authors>
+    <projectUrl>https://github.com/marhoily/Generaid</projectUrl>
+    <!--<iconUrl>https://raw.githubusercontent.com/marhoily/Generaid/master/NugetIcon.png</iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>Utilities to aid C# code generation in VS</summary>
+    <description>Aids C# code generation when into multiple files involved,
+      and VS *.csproj files need to be kept in sync</description>
+    <tags>C# T4 CodeGeneration csproj</tags>
+  </metadata>
+  <files>
+    <file src="Generaid\bin\Release\Generaid.dll" target="lib\net40\Generaid.dll" />
+    <file src="Generaid\bin\Release\Generaid.XML" target="lib\net40\Generaid.XML" />
+  </files>
+</package>

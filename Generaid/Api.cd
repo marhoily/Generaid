@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Generator.HierarchyBuilder" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <Members>
+      <Field Name="_nodes" Hidden="true" />
+      <Field Name="_projectDir" Hidden="true" />
+      <Field Name="_projectPath" Hidden="true" />
+      <Field Name="_registrations" Hidden="true" />
+      <Method Name="IEnumerable.GetEnumerator" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AEIAABAAAAAAAAAAEAAAAAIAAAAAAAAEAABAAEAAAAA=</HashCode>
+      <FileName>HierarchyBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Generator.NodeBuilder&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2.5" Width="2.75" />
+    <Members>
+      <Field Name="_model" Hidden="true" />
+      <Field Name="_nodes" Hidden="true" />
+      <Method Name="Build" Hidden="true" />
+      <Method Name="IEnumerable.GetEnumerator" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAIAABAAAAAAAAAAAgAAAAAAAAAAgAAEAAAAAAAAAAA=</HashCode>
+      <FileName>NodeBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Generator.ITransformer">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAASAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ITransformer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Candara" Size="10" />
+</ClassDiagram>
