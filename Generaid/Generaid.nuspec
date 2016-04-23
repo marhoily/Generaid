@@ -13,7 +13,7 @@
     <tags>C# T4 CodeGeneration csproj</tags>
   </metadata>
   <files>
-    <file src="Generaid\bin\Release\Generaid.dll" target="lib\net40\Generaid.dll" />
-    <file src="Generaid\bin\Release\Generaid.XML" target="lib\net40\Generaid.XML" />
+    <file src="bin\Release\Generaid.dll" target="lib\net40\Generaid.dll" />
+    <file src="bin\Release\Generaid.XML" target="lib\net40\Generaid.XML" />
   </files>
 </package>
