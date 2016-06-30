@@ -1,19 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
-  <metadata>
-    <id>Generaid</id>
-    <version>$version$</version>
-    <authors>Ilya Margolin</authors>
-    <projectUrl>https://github.com/marhoily/Generaid</projectUrl>
-    <!--<iconUrl>https://raw.githubusercontent.com/marhoily/Generaid/master/NugetIcon.png</iconUrl>-->
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <summary>Utilities to aid C# code generation in VS</summary>
-    <description>Aids C# code generation when multiple files involved,
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Generaid</id>
+        <version>$version$</version>
+        <authors>Ilya Margolin</authors>
+        <projectUrl>https://github.com/marhoily/Generaid</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Aids C# code generation when multiple files involved,
       and VS *.csproj files need to be kept in sync</description>
-    <tags>C# T4 CodeGeneration csproj</tags>
-  </metadata>
-  <files>
-    <file src="bin\Release\Generaid.dll" target="lib\net40\Generaid.dll" />
-    <file src="bin\Release\Generaid.XML" target="lib\net40\Generaid.XML" />
-  </files>
+        <summary>Utilities to aid C# code generation in VS</summary>
+        <tags>C# T4 CodeGeneration csproj</tags>
+        <dependencies>
+            <dependency id="System.IO.Abstractions" version="2.0.0.124" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="bin\Release\Generaid.dll" target="lib\net451\Generaid.dll" />
+        <file src="bin\Release\Generaid.XML" target="lib\net451\Generaid.XML" />
+    </files>
 </package>
