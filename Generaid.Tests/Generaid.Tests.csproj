@@ -104,7 +104,7 @@
     <EmbeddedResource Include="sample.proj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HierarchyBuilderFacts.Test.approved.txt">
+    <Content Include="HierarchyBuilderFacts.Generate_Changes_Project_File.approved.txt">
       <DependentUpon>HierarchyBuilderFacts.cs</DependentUpon>
     </Content>
   </ItemGroup>
