@@ -16,9 +16,9 @@ namespace Generaid
         private readonly IFileSystem _fs;
 
         int INodeOwner.Level => Owner.Level + 1;
-        public string ProjectDir => Owner.ProjectDir;
+        public string GeneratedDirName => Owner.GeneratedDirName;
         public string DependentUpon => NodeOwner?.Name;
-        public string FullName => ProjectDir + "\\" + Name;
+        public string FullName => GeneratedDirName + "\\" + Name;
 
         public GenNode(ITransformer transformer, IEnumerable<GenNode> nodes, IFileSystem fs)
         {
@@ -53,7 +53,7 @@ namespace Generaid
 
         public void Generate(string projectRoot)
         {
-            projectRoot.EnsureDirectoryExists(_fs, ProjectDir);
+            projectRoot.EnsureDirectoryExists(_fs, GeneratedDirName);
             var file = _fs.Path.Combine(projectRoot, FullName);
             _fs.File.WriteAllText(file, Transformer.TransformText());
         }

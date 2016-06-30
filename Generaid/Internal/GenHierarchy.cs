@@ -16,14 +16,14 @@ namespace Generaid
         private readonly IFileSystem _fs;
 
         public string ProjectPath { get; }
-        public string ProjectDir { get; }
+        public string GeneratedDirName { get; }
         int INodeOwner.Level => 0;
 
         public GenHierarchy(string projectPath,
-            string projectDir, List<GenNode.Proto> nodes, C converters, IFileSystem fs)
+            string generatedDirName, List<GenNode.Proto> nodes, C converters, IFileSystem fs)
         {
             ProjectPath = projectPath;
-            ProjectDir = projectDir;
+            GeneratedDirName = generatedDirName;
             _fs = fs;
             _genNodes = nodes
                 .SelectMany(n => Expand(n, converters, n.Model))
@@ -54,13 +54,17 @@ namespace Generaid
 
         public void Generate()
         {
+            var projectDir = _fs.Path.GetDirectoryName(ProjectPath);
+            var generatedDir = _fs.Path.Combine(projectDir, GeneratedDirName);
+            if (_fs.Directory.Exists(generatedDir))
+                _fs.Directory.Delete(generatedDir, true);
             var doc = ReadProj();
             var nodes = GetAllNodes().ToList();
             foreach (var node in nodes)
-                node.Generate(Path.GetDirectoryName(ProjectPath));
+                node.Generate(projectDir);
             var set = new HashSet<CmpNode>(nodes.Select(
                 n => new CmpNode(n.FullName, n.DependentUpon)));
-            if (doc.Update(ProjectDir, set))
+            if (doc.Update(GeneratedDirName, set))
                 SaveProj(doc);
         }
 
