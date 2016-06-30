@@ -2,14 +2,19 @@
 
 namespace Generaid
 {
-    partial class CompanyGenerator : ITransformer
+    public sealed class ModelGenerator : ITransformer
+    {
+        public string Name => "root";
+        public string TransformText() => "root";
+    }
+    public class CompanyGenerator : ITransformer
     {
         public CompanyGenerator(Company company) { _company = company; }
         private readonly Company _company;
         public string Name => _company.Name;
         public string TransformText() => _company.Name;
     }
-    partial class EmployeeGenerator : ITransformer
+    public class EmployeeGenerator : ITransformer
     {
         public EmployeeGenerator(Employee employee) { _employee = employee; }
         private readonly Employee _employee;

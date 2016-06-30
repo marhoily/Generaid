@@ -83,10 +83,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model.cs">
-      <DependentUpon>ModelGenerator.cs</DependentUpon>
+      <DependentUpon>HierarchyBuilderFacts.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModelGenerator.cs" />
+    <Compile Include="HierarchyBuilderFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -99,15 +100,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ModelGenerator.Test.approved.txt">
-      <DependentUpon>ModelGenerator.cs</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <EmbeddedResource Include="sample.proj" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="HierarchyBuilderFacts.Test.approved.txt">
+      <DependentUpon>HierarchyBuilderFacts.cs</DependentUpon>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
