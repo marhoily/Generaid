@@ -11,7 +11,9 @@ namespace Generaid
     {
         public CompanyGenerator(Company company) { _company = company; }
         private readonly Company _company;
-        public string Name => _company.Name;
+        public string Name =>
+            (_company.NeedSubfolder ? "companies/" : "")
+            + _company.Name;
         public string TransformText() => _company.Name;
     }
     public class EmployeeGenerator : ITransformer
@@ -34,6 +36,7 @@ namespace Generaid
     {
         public string Name { get; }
         public Employee[] Employees { get; }
+        public bool NeedSubfolder { get; set; }
 
         public Company(string name, params Employee[] employees)
         {

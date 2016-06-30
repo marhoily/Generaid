@@ -18,13 +18,14 @@ namespace Generaid
                         Utils.EmbeddedResource("Generaid.sample.proj"))
                 });
         private readonly HierarchyBuilder _hierarchyBuilder;
+        private readonly Model _model = new Model();
 
         public HierarchyBuilderFacts()
         {
             _hierarchyBuilder = new HierarchyBuilder(
                 _fs, "c:/proj/sample.proj", "Generated")
             {
-                new NodeBuilder<ModelGenerator>(new Model())
+                new NodeBuilder<ModelGenerator>(_model)
                 {
                     new NodeBuilder<CompanyGenerator>
                     {
@@ -100,6 +101,24 @@ namespace Generaid
                     @"c:\proj\Generated\John",
                     @"c:\proj\Generated\Marry",
                     @"c:\proj\Generated\Apple",
+                    @"c:\proj\Generated\Alice",
+                    @"c:\proj\Generated\Bob");
+        }
+        [Fact]
+        public void Generate_Should_Respect_Subfolders()
+        {
+            foreach (var company in _model.Companies)
+                company.NeedSubfolder = true;
+
+            _hierarchyBuilder.Generate();
+            _fs.AllFiles
+                .Except(new[] { @"c:\proj\sample.proj" })
+                .Should().BeEquivalentTo(
+                    @"c:\proj\Generated\companies\Microsoft",
+                    @"c:\proj\Generated\companies\Apple",
+                    @"c:\proj\Generated\root",
+                    @"c:\proj\Generated\John",
+                    @"c:\proj\Generated\Marry",
                     @"c:\proj\Generated\Alice",
                     @"c:\proj\Generated\Bob");
         }
