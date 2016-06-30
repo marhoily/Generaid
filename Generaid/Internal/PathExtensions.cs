@@ -1,17 +1,18 @@
 using System.IO;
+using System.IO.Abstractions;
 
 namespace Generaid
 {
     internal static class PathExtensions
     {
-        public static void EnsureDirectoyExists(this string path, string dir)
-            => Path.Combine(path, dir).EnsureDirectoyExists();
+        public static void EnsureDirectoryExists(this string path, IFileSystem fs, string dir)
+            => fs.Path.Combine(path, dir).EnsureDirectoryExists(fs);
 
-        private static void EnsureDirectoyExists(this string path)
+        private static void EnsureDirectoryExists(this string path, IFileSystem fs)
         {
-            if (Directory.Exists(path)) return;
-            Path.GetDirectoryName(path).EnsureDirectoyExists();
-            Directory.CreateDirectory(path);
+            if (fs.Directory.Exists(path)) return;
+            fs.Path.GetDirectoryName(path).EnsureDirectoryExists(fs);
+            fs.Directory.CreateDirectory(path);
         }
     }
 }

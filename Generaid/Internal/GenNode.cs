@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 
 namespace Generaid
@@ -12,17 +13,19 @@ namespace Generaid
         private GenNode[] GenNodes { get; }
         private INodeOwner Owner { get; set; }
         private string Name => Transformer.Name;
+        private readonly IFileSystem _fs;
 
         int INodeOwner.Level => Owner.Level + 1;
         public string ProjectDir => Owner.ProjectDir;
         public string DependentUpon => NodeOwner?.Name;
         public string FullName => ProjectDir + "\\" + Name;
 
-        public GenNode(ITransformer transformer, IEnumerable<GenNode> nodes)
+        public GenNode(ITransformer transformer, IEnumerable<GenNode> nodes, IFileSystem fs)
         {
             if (transformer == null)
                 throw new ArgumentNullException(nameof(transformer));
             Transformer = transformer;
+            _fs = fs;
             GenNodes = nodes.ToArray();
         }
 
@@ -50,9 +53,9 @@ namespace Generaid
 
         public void Generate(string projectRoot)
         {
-            projectRoot.EnsureDirectoyExists(ProjectDir);
-            var file = Path.Combine(projectRoot, FullName);
-            File.WriteAllText(file, Transformer.TransformText());
+            projectRoot.EnsureDirectoryExists(_fs, ProjectDir);
+            var file = _fs.Path.Combine(projectRoot, FullName);
+            _fs.File.WriteAllText(file, Transformer.TransformText());
         }
     }
 }

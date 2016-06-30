@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Abstractions;
 
 namespace Generaid
 {
@@ -9,6 +10,7 @@ namespace Generaid
     /// <summary>Use to build a hierarchy</summary>
     public sealed class HierarchyBuilder : IEnumerable
     {
+        private readonly IFileSystem _fs;
         private readonly string _projectPath;
         private readonly string _projectDir;
         private readonly List<GenNode.Proto> _nodes = new List<GenNode.Proto>();
@@ -16,7 +18,14 @@ namespace Generaid
 
         /// <summary>Use to build a hierarchy</summary>
         public HierarchyBuilder(string projectPath, string projectDir)
+            : this(new FileSystem(), projectPath, projectDir)
         {
+            
+        }
+        /// <summary>Version for tests</summary>
+        internal HierarchyBuilder(IFileSystem fs, string projectPath, string projectDir)
+        {
+            _fs = fs;
             _projectPath = projectPath;
             _projectDir = projectDir;
         }
@@ -33,7 +42,7 @@ namespace Generaid
         }
         /// <summary>Go and generate code, update csproj file, etc.</summary>
         public void Generate() => new GenHierarchy(
-            _projectPath, _projectDir, _nodes, _registrations).Generate();
+            _projectPath, _projectDir, _nodes, _registrations, _fs).Generate();
         IEnumerator IEnumerable.GetEnumerator() { throw new Exception(); }
     }
 }
