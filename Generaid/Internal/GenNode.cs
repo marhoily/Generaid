@@ -53,8 +53,9 @@ namespace Generaid
 
         public void Generate(string projectRoot)
         {
-            projectRoot.EnsureDirectoryExists(_fs, GeneratedDirName);
             var file = _fs.Path.Combine(projectRoot, FullName);
+            projectRoot.EnsureDirectoryExists(_fs, 
+                _fs.Path.GetDirectoryName(file));
             _fs.File.WriteAllText(file, Transformer.TransformText());
         }
     }
