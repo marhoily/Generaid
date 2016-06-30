@@ -22,10 +22,17 @@ namespace Generaid
                     ["c:/proj/sample.proj"] = new MockFileData(
                         Utils.EmbeddedResource("Generaid.sample.proj"))
                 });
-            _hierarchyBuilder = new HierarchyBuilder(_fs, "c:/proj/sample.proj", "Generated") {
-                new NodeBuilder<ModelGenerator>(new Model()) {
-                    new NodeBuilder<CompanyGenerator> {
-                        new NodeBuilder<EmployeeGenerator>() } } }
+            _hierarchyBuilder = new HierarchyBuilder(
+                _fs, "c:/proj/sample.proj", "Generated")
+            {
+                new NodeBuilder<ModelGenerator>(new Model())
+                {
+                    new NodeBuilder<CompanyGenerator>
+                    {
+                        new NodeBuilder<EmployeeGenerator>()
+                    }
+                }
+            }
                 .With((Model m) => m.Companies)
                 .With((Company c) => c.Employees);
         }
@@ -45,24 +52,40 @@ namespace Generaid
             Approvals.Verify(_fs.File.
                 ReadAllText("c:/proj/sample.proj"));
         }
+
         [Fact]
         public void Generate_Creates_Transformed_Files()
         {
             _hierarchyBuilder.Generate();
 
-            var generatedFiles = _fs.AllFiles
-                .Except(new [] { @"c:\proj\sample.proj" })
-                .ToList();
+            _fs.AllFiles
+                .Except(new[] {@"c:\proj\sample.proj"})
+                .Should().BeEquivalentTo(
+                @"c:\proj\Generated\root",
+                @"c:\proj\Generated\Microsoft",
+                @"c:\proj\Generated\John",
+                @"c:\proj\Generated\Marry",
+                @"c:\proj\Generated\Apple",
+                @"c:\proj\Generated\Alice",
+                @"c:\proj\Generated\Bob");
 
-            generatedFiles
-                .Select(x => x.Replace(@"c:\proj\Generated\", ""))
-                .Should().BeEquivalentTo("root", "Microsoft",
-                "John", "Marry", "Apple", "Alice", "Bob");
+           
+        }
+
+        [Fact]
+        public void Generate_Write_Transformed_Text()
+        {
+            _hierarchyBuilder.Generate();
+
+            var generatedFiles = _fs.AllFiles
+                .Except(new[] {@"c:\proj\sample.proj"});
+
             foreach (var generatedFile in generatedFiles)
             {
-                _fs.File.ReadAllText(generatedFile)
-                    .Should()
-                    .Be(generatedFile.Replace(@"c:\proj\Generated\", ""));
+                var expectedContent = generatedFile.Replace(@"c:\proj\Generated\", "");
+                _fs.File
+                    .ReadAllText(generatedFile)
+                    .Should().Be(expectedContent);
             }
         }
     }
