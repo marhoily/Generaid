@@ -5,6 +5,7 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using FluentAssertions;
 using Xunit;
 
 namespace Generaid
@@ -31,6 +32,20 @@ namespace Generaid
 
             Approvals.Verify(fs.File.
                 ReadAllText("c:/proj/sample.proj"));
+            var generatedFiles = fs.AllFiles
+                .Except(new [] { @"c:\proj\sample.proj" })
+                .ToList();
+
+            generatedFiles
+                .Select(x => x.Replace(@"c:\proj\Generated\", ""))
+                .Should().BeEquivalentTo("root", "Microsoft",
+                "John", "Marry", "Apple", "Alice", "Bob");
+            foreach (var generatedFile in generatedFiles)
+            {
+                fs.File.ReadAllText(generatedFile)
+                    .Should()
+                    .Be(generatedFile.Replace(@"c:\proj\Generated\", ""));
+            }
         }
         private static string EmbeddedResource(string resource)
         {
@@ -42,7 +57,7 @@ namespace Generaid
             using (var reader = new StreamReader(stream))
                 return reader.ReadToEnd();
         }
-        public string Name => "model.cs";
-        public string TransformText() => "blah";
+        public string Name => "root";
+        public string TransformText() => "root";
     }
 }

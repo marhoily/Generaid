@@ -82,16 +82,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompanyGenerator.cs">
-      <DependentUpon>CompanyGenerator.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="EmployeeGenerator.cs">
-      <DependentUpon>EmployeeGenerator.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="Model.cs">
       <DependentUpon>ModelGenerator.cs</DependentUpon>
     </Compile>
@@ -109,16 +99,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CompanyGenerator.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>CompanyGenerator.cs</LastGenOutput>
-      <DependentUpon>ModelGenerator.cs</DependentUpon>
-    </Content>
-    <Content Include="EmployeeGenerator.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>EmployeeGenerator.cs</LastGenOutput>
-      <DependentUpon>ModelGenerator.cs</DependentUpon>
-    </Content>
     <Content Include="ModelGenerator.Test.approved.txt">
       <DependentUpon>ModelGenerator.cs</DependentUpon>
     </Content>

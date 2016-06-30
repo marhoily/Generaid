@@ -6,13 +6,15 @@ namespace Generaid
     {
         public CompanyGenerator(Company company) { _company = company; }
         private readonly Company _company;
-        public string Name => "company.cs";
+        public string Name => _company.Name;
+        public string TransformText() => _company.Name;
     }
     partial class EmployeeGenerator : ITransformer
     {
         public EmployeeGenerator(Employee employee) { _employee = employee; }
         private readonly Employee _employee;
-        public string Name => "employee.cs";
+        public string Name => _employee.Name;
+        public string TransformText() => _employee.Name;
     }
     public sealed class Employee
     {
@@ -37,7 +39,7 @@ namespace Generaid
 
     public sealed class Model
     {
-        public List<Company> Companies = new List<Company> {
+        public readonly List<Company> Companies = new List<Company> {
             new Company("Microsoft",
                 new Employee("John"),
                 new Employee("Marry")),
