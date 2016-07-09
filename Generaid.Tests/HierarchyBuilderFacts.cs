@@ -122,5 +122,27 @@ namespace Generaid
                     @"c:\proj\Generated\Alice",
                     @"c:\proj\Generated\Bob");
         }
+        [Fact]
+        public void DoNotGenerate_Should_Work()
+        {
+            _model.Companies[0].DoNotGenerate = true;
+            foreach (var company in _model.Companies)
+                company.NeedSubfolder = true;
+
+            _hierarchyBuilder.Generate();
+            _fs.AllFiles
+                .Except(new[] { @"c:\proj\sample.proj" })
+                .Should().BeEquivalentTo(
+                    @"c:\proj\Generated\companies\Apple",
+                    @"c:\proj\Generated\root",
+                    @"c:\proj\Generated\John",
+                    @"c:\proj\Generated\Marry",
+                    @"c:\proj\Generated\Alice",
+                    @"c:\proj\Generated\Bob");
+
+            Approvals.Verify(_fs.File.
+                ReadAllText("c:/proj/sample.proj"));
+        }
+
     }
 }

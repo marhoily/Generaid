@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Xml.Linq;
@@ -61,9 +60,11 @@ namespace Generaid
             var doc = ReadProj();
             var nodes = GetAllNodes().ToList();
             foreach (var node in nodes)
-                node.Generate(projectDir);
-            var set = new HashSet<CmpNode>(nodes.Select(
-                n => new CmpNode(n.FullName, n.DependentUpon)));
+                if (node.DoGenerate)
+                    node.Generate(projectDir);
+            var set = new HashSet<CmpNode>(nodes
+                .Where(n => n.DoGenerate)
+                .Select(n => new CmpNode(n.FullName, n.DependentUpon)));
             if (doc.Update(GeneratedDirName, set))
                 SaveProj(doc);
         }

@@ -59,6 +59,8 @@ namespace Generaid
                 foreach (var d in child.GetDescendantsAndSelf())
                     yield return d;
         }
+        public bool DoGenerate => 
+            (Transformer as ICanChooseToEscapeGeneration)?.DoNotGenerate != true;
 
         public void Generate(string projectRoot)
         {

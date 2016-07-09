@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICanChooseToEscapeGeneration.cs" />
     <Compile Include="Internal\CmpNode.cs" />
     <Compile Include="Internal\CsProjExtensions.cs" />
     <Compile Include="Internal\GenHierarchy.cs" />

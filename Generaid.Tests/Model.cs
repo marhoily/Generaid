@@ -7,7 +7,7 @@ namespace Generaid
         public string Name => "root";
         public string TransformText() => "root";
     }
-    public class CompanyGenerator : ITransformer
+    public class CompanyGenerator : ITransformer, ICanChooseToEscapeGeneration
     {
         public CompanyGenerator(Company company) { _company = company; }
         private readonly Company _company;
@@ -15,6 +15,7 @@ namespace Generaid
             (_company.NeedSubfolder ? @"companies\" : "")
             + _company.Name;
         public string TransformText() => _company.Name;
+        public bool DoNotGenerate => _company.DoNotGenerate;
     }
     public class EmployeeGenerator : ITransformer
     {
@@ -37,6 +38,7 @@ namespace Generaid
         public string Name { get; }
         public Employee[] Employees { get; }
         public bool NeedSubfolder { get; set; }
+        public bool DoNotGenerate { get; set; }
 
         public Company(string name, params Employee[] employees)
         {
