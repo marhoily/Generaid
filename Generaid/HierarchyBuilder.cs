@@ -26,7 +26,7 @@ namespace Generaid
         internal HierarchyBuilder(IFileSystem fs, string projectPath, string projectDir)
         {
             _fs = fs;
-            _projectPath = projectPath;
+            _projectPath = _fs.Path.GetFullPath(projectPath);
             _projectDir = projectDir;
         }
         /// <summary>Adds nodes</summary>
