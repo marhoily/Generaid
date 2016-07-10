@@ -27,4 +27,5 @@ new HierarchyBuilder(proj, "Generated") {
 
 Will help you to generate code like this:
 
-![Schema](Generaid/Wiki/Schema.png)
+![Schema](https://raw.githubusercontent.com/marhoily/Generaid/master/Wiki/Schema.png)
+	
