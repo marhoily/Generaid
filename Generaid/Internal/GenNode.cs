@@ -16,7 +16,16 @@ namespace Generaid
 
         int INodeOwner.Level => Owner.Level + 1;
         public string GeneratedDirName => Owner.GeneratedDirName;
-        public string DependentUpon => NodeOwner?.Name;
+        public string DependentUpon
+        {
+            get
+            {
+                if (NodeOwner == null) return null;
+                var ownerDir = _fs.Path.GetDirectoryName(NodeOwner.FullName);
+                var myDir = _fs.Path.GetDirectoryName(FullName);
+                return ownerDir != myDir ? null : NodeOwner.Name;
+            }
+        }
         public string FullName => GeneratedDirName + "\\" + Name;
 
         public GenNode(ITransformer transformer, IEnumerable<GenNode> nodes, IFileSystem fs)
@@ -49,6 +58,8 @@ namespace Generaid
                 foreach (var d in child.GetDescendantsAndSelf())
                     yield return d;
         }
+        public bool DoGenerate => 
+            (Transformer as ICanChooseToEscapeGeneration)?.DoNotGenerate != true;
 
         public void Generate(string projectRoot)
         {
