@@ -141,7 +141,7 @@ namespace Generaid
                     @"c:\proj\Generated\Bob");
 
             Approvals.Verify(_fs.File.
-                ReadAllText("c:/proj/sample.proj"));
+                ReadAllText(@"c:\proj\sample.proj"));
         }
 
     }
