@@ -14,7 +14,7 @@ namespace Generaid
         private readonly MockFileSystem _fs = new MockFileSystem(
                 new Dictionary<string, MockFileData>
                 {
-                    ["c:/proj/sample.proj"] = new MockFileData(
+                    [@"c:\proj\sample.proj"] = new MockFileData(
                         Utils.EmbeddedResource("Generaid.sample.proj"))
                 });
         private readonly HierarchyBuilder _hierarchyBuilder;
@@ -23,7 +23,7 @@ namespace Generaid
         public HierarchyBuilderFacts()
         {
             _hierarchyBuilder = new HierarchyBuilder(
-                _fs, "c:/proj/sample.proj", "Generated")
+                _fs, @"c:\proj\sample.proj", "Generated")
             {
                 new NodeBuilder<ModelGenerator>(_model)
                 {
@@ -50,7 +50,7 @@ namespace Generaid
             _hierarchyBuilder.Generate();
 
             Approvals.Verify(_fs.File.
-                ReadAllText("c:/proj/sample.proj"));
+                ReadAllText(@"c:\proj\sample.proj"));
         }
 
         [Fact]

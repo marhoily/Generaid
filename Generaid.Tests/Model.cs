@@ -12,7 +12,7 @@ namespace Generaid
         public CompanyGenerator(Company company) { _company = company; }
         private readonly Company _company;
         public string Name =>
-            (_company.NeedSubfolder ? "companies/" : "")
+            (_company.NeedSubfolder ? @"companies\" : "")
             + _company.Name;
         public string TransformText() => _company.Name;
     }
