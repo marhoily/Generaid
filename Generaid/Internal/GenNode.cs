@@ -16,6 +16,7 @@ namespace Generaid
 
         int INodeOwner.Level => Owner.Level + 1;
         public string GeneratedDirName => Owner.GeneratedDirName;
+
         public string DependentUpon
         {
             get
@@ -26,6 +27,7 @@ namespace Generaid
                 return ownerDir != myDir ? null : NodeOwner.Name;
             }
         }
+
         public string FullName => GeneratedDirName + "\\" + Name;
 
         public GenNode(ITransformer transformer, IEnumerable<GenNode> nodes, IFileSystem fs)
@@ -58,15 +60,23 @@ namespace Generaid
                 foreach (var d in child.GetDescendantsAndSelf())
                     yield return d;
         }
-        public bool DoGenerate => 
+
+        public bool DoGenerate =>
             (Transformer as ICanChooseToEscapeGeneration)?.DoNotGenerate != true;
 
         public void Generate(string projectRoot)
         {
             var file = _fs.Path.Combine(projectRoot, FullName);
-            projectRoot.EnsureDirectoryExists(_fs, 
+            projectRoot.EnsureDirectoryExists(_fs,
                 _fs.Path.GetDirectoryName(file));
-            _fs.File.WriteAllText(file, Transformer.TransformText());
+            try
+            {
+                _fs.File.WriteAllText(file, Transformer.TransformText());
+            }
+            catch (Exception x)
+            {
+                throw new Exception("An exception occured while WriteAllText into file: " + file, x);
+            }
         }
     }
 }

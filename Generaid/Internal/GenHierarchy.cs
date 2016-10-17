@@ -13,15 +13,15 @@ namespace Generaid
     {
         private readonly GenNode[] _genNodes;
         private readonly IFileSystem _fs;
+        private readonly string _projectPath;
 
-        public string ProjectPath { get; }
         public string GeneratedDirName { get; }
         int INodeOwner.Level => 0;
 
         public GenHierarchy(string projectPath,
             string generatedDirName, List<GenNode.Proto> nodes, C converters, IFileSystem fs)
         {
-            ProjectPath = projectPath;
+            _projectPath = projectPath;
             GeneratedDirName = generatedDirName;
             _fs = fs;
             _genNodes = nodes
@@ -53,7 +53,7 @@ namespace Generaid
 
         public void Generate()
         {
-            var projectDir = _fs.Path.GetDirectoryName(ProjectPath);
+            var projectDir = _fs.Path.GetDirectoryName(_projectPath);
             var generatedDir = _fs.Path.Combine(projectDir, GeneratedDirName);
             if (_fs.Directory.Exists(generatedDir))
                 _fs.Directory.Delete(generatedDir, true);
@@ -71,12 +71,12 @@ namespace Generaid
 
         private XDocument ReadProj()
         {
-            using (var file = _fs.File.OpenText(ProjectPath))
+            using (var file = _fs.File.OpenText(_projectPath))
                 return XDocument.Load(file);
         }
         private void SaveProj(XDocument doc)
         {
-            using (var file = _fs.File.CreateText(ProjectPath))
+            using (var file = _fs.File.CreateText(_projectPath))
                 doc.Save(file);
         }
     }

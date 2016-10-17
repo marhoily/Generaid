@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace Generaid
 {
@@ -7,6 +8,7 @@ namespace Generaid
         public string Name => "root";
         public string TransformText() => "root";
     }
+    [UsedImplicitly]
     public class CompanyGenerator : ITransformer, ICanChooseToEscapeGeneration
     {
         public CompanyGenerator(Company company) { _company = company; }
@@ -17,6 +19,7 @@ namespace Generaid
         public string TransformText() => _company.Name;
         public bool DoNotGenerate => _company.DoNotGenerate;
     }
+    [UsedImplicitly]
     public class EmployeeGenerator : ITransformer
     {
         public EmployeeGenerator(Employee employee) { _employee = employee; }

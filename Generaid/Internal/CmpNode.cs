@@ -28,7 +28,8 @@ namespace Generaid
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj is CmpNode && Equals((CmpNode) obj);
+            var other = obj as CmpNode;
+            return other != null && Equals(other);
         }
 
         public override int GetHashCode()
