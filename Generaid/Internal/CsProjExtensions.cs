@@ -23,16 +23,16 @@ namespace Generaid
 
         private static IEnumerable<XElement> FindByDirectory(this XContainer doc, string dir)
             => doc.XPathSelectElements("//ns:ItemGroup/ns:Compile", M)
-                .Where(x => x.Attribute("Include").Value.StartsWith(dir));
+                .Where(x => x.Attribute("Include")?.Value.StartsWith(dir) == true);
 
-        private static void Insert(this XContainer doc, string prefferedFolder, params CmpNode[] genNodes)
+        private static void Insert(this XContainer doc, string preferredFolder, params CmpNode[] genNodes)
         {
             doc.XPathSelectElements("//ns:ItemGroup[ns:Compile]", M)
                 .OrderByDescending(x => x
                     .XPathSelectElements("ns:Compile[@Include]", M)
                     .Count(y => y
-                        .Attribute("Include").Value
-                        .StartsWith(prefferedFolder)))
+                        .Attribute("Include")?.Value
+                        .StartsWith(preferredFolder)==true))
                 .FirstOrDefault()?
                 .Add(genNodes.Select(n =>
                     new XElement(Ns + "Compile",
@@ -45,7 +45,7 @@ namespace Generaid
             .SingleOrDefault(x => (x.GetDependentUpon() ?? "") == node.DependentUpon);
 
         private static CmpNode ToCmpNode(this XElement xElement) =>
-            new CmpNode(xElement.Attribute("Include").Value, xElement.GetDependentUpon());
+            new CmpNode(xElement.Attribute("Include")?.Value, xElement.GetDependentUpon());
 
         public static bool Update(this XContainer proj,
             string projectDir, HashSet<CmpNode> newNodes)
