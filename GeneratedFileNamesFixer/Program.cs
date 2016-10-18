@@ -12,14 +12,23 @@ namespace GeneratedFileNamesFixer
         static void Main()
         {
             var projectFiles = Directory.EnumerateFiles(
-                Environment.CurrentDirectory, "*.csproj");
+                Environment.CurrentDirectory, "*.csproj", SearchOption.AllDirectories);
             foreach (var file in projectFiles)
             {
+                Console.Write(file + "...");
                 var oldText = File.ReadAllText(file);
                 var newText = Fix(oldText);
                 if (oldText != newText)
+                {
                     File.WriteAllText(file, newText);
+                    Console.Write("Fixed");
+                }
+                else
+                {
+                    Console.Write("<null>");
+                }
             }
+
         }
 
         public static string Fix(string input)

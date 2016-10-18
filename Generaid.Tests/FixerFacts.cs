@@ -13,6 +13,12 @@ namespace Generaid
                 .Should().Be("...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...");
         }
         [Fact]
+        public void FactMethodName_3()
+        {
+            Program.Fix("...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...<LastGenOutput>WrapperInterfaceHost.cs</LastGenOutput>...")
+                .Should().Be("...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...");
+        }
+        [Fact]
         public void FactMethodName2()
         {
             Program.Fix("...<LastGenOutput>WrapperInterfaceHost.cs")
