@@ -8,26 +8,44 @@ namespace Generaid
         [Fact]
         public void FactMethodName()
         {
-            GeneratorProjectFixer.Fix("...<LastGenOutput>WrapperInterfaceHost.cs</LastGenOutput>...")
-                .Should().Be("...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...");
+            Check("...<>W.cs</>...", "...<>W.g.cs</>...");
         }
+
+        private static void Check(string actual, string expected)
+        {
+            GeneratorProjectFixer.Fix(Expand(actual)).Should().Be(Expand(expected));
+        }
+
+        private static string Expand(string actual)
+        {
+            return actual
+                    .Replace("<>", "<LastGenOutput>")
+                    .Replace("</>", "</LastGenOutput>");
+        }
+
         [Fact]
         public void FactMethodName_3()
         {
-            GeneratorProjectFixer.Fix("...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...<LastGenOutput>WrapperInterfaceHost.cs</LastGenOutput>...")
-                .Should().Be("...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...");
+            Check(
+                "...<>W.g.cs</>...<>W.cs</>...",
+                "...<>W.g.cs</>...<>W.g.cs</>...");
+        }
+        [Fact]
+        public void FactMethodName_4()
+        {
+            Check(
+                "...<>A.cs</>...<>B.cs</>...",
+                "...<>A.g.cs</>...<>B.g.cs</>...");
         }
         [Fact]
         public void FactMethodName2()
         {
-            GeneratorProjectFixer.Fix("...<LastGenOutput>WrapperInterfaceHost.cs")
-                .Should().Be("...<LastGenOutput>WrapperInterfaceHost.cs");
+            Check("...<>W.cs", "...<>W.cs");
         }
         [Fact]
         public void FactMethodName1()
         {
-            GeneratorProjectFixer.Fix("...")
-                .Should().Be("...");
+            Check("...", "...");
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Generaid
                         {
                             sb.Append(input.Substring(curr, dot - curr));
                             sb.Append(".g");
-                            curr = dot - curr;
+                            curr = dot;
                         }
                     }
                     open = input.IndexOf("<LastGenOutput>", close, StringComparison.Ordinal);
