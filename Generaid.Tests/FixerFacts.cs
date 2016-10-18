@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using GeneratedFileNamesFixer;
 using Xunit;
 
 namespace Generaid
@@ -9,25 +8,25 @@ namespace Generaid
         [Fact]
         public void FactMethodName()
         {
-            Program.Fix("...<LastGenOutput>WrapperInterfaceHost.cs</LastGenOutput>...")
+            GeneratorProjectFixer.Fix("...<LastGenOutput>WrapperInterfaceHost.cs</LastGenOutput>...")
                 .Should().Be("...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...");
         }
         [Fact]
         public void FactMethodName_3()
         {
-            Program.Fix("...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...<LastGenOutput>WrapperInterfaceHost.cs</LastGenOutput>...")
+            GeneratorProjectFixer.Fix("...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...<LastGenOutput>WrapperInterfaceHost.cs</LastGenOutput>...")
                 .Should().Be("...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...<LastGenOutput>WrapperInterfaceHost.g.cs</LastGenOutput>...");
         }
         [Fact]
         public void FactMethodName2()
         {
-            Program.Fix("...<LastGenOutput>WrapperInterfaceHost.cs")
+            GeneratorProjectFixer.Fix("...<LastGenOutput>WrapperInterfaceHost.cs")
                 .Should().Be("...<LastGenOutput>WrapperInterfaceHost.cs");
         }
         [Fact]
         public void FactMethodName1()
         {
-            Program.Fix("...")
+            GeneratorProjectFixer.Fix("...")
                 .Should().Be("...");
         }
     }
