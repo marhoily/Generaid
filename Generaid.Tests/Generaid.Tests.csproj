@@ -86,6 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FixerFacts.cs" />
     <Compile Include="Model.cs">
       <DependentUpon>HierarchyBuilderFacts.cs</DependentUpon>
     </Compile>
@@ -101,6 +102,10 @@
     <ProjectReference Include="..\Generaid\Generaid.csproj">
       <Project>{7B227385-B83D-4E16-868E-E307967D0EE4}</Project>
       <Name>Generaid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GeneratedFileNamesFixer\GeneratedFileNamesFixer.csproj">
+      <Project>{f24fba49-7194-4e7b-8e7c-a82ee8afdf54}</Project>
+      <Name>GeneratedFileNamesFixer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
