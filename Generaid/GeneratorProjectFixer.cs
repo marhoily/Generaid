@@ -28,12 +28,13 @@ namespace Generaid
         ///     You can go into resharper settings and exclude *.g.cs
         ///     files from analysis
         /// </remarks>
-        public static List<string> FixFrojFile(string file)
+        public static List<string> FixProjFile(string file)
         {
             var oldText = File.ReadAllText(file);
             var result = Fix(oldText);
             if (oldText != result.NewText)
                 File.WriteAllText(file, result.NewText);
+
             return result.Files;
         }
 
