@@ -8,5 +8,4 @@ namespace Generaid
         /// <summary>T4 should generate this automatically for you</summary>
         string TransformText();
     }
-
 }

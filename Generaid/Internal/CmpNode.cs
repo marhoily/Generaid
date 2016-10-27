@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using static System.StringComparison;
 
 namespace Generaid
 {
@@ -7,7 +8,7 @@ namespace Generaid
     internal sealed class CmpNode
     {
         private static readonly StringComparer 
-            Case = StringComparer.OrdinalIgnoreCase;
+            IgnoreCase = StringComparer.OrdinalIgnoreCase;
 
         public string DependentUpon { get; }
         public string FullName { get; }
@@ -20,8 +21,8 @@ namespace Generaid
 
         private bool Equals(CmpNode other)
         {
-            return string.Equals(DependentUpon, other.DependentUpon, StringComparison.OrdinalIgnoreCase) 
-                && string.Equals(FullName, other.FullName, StringComparison.OrdinalIgnoreCase);
+            return string.Equals(DependentUpon, other.DependentUpon, OrdinalIgnoreCase) 
+                && string.Equals(FullName, other.FullName, OrdinalIgnoreCase);
         }
 
         public override bool Equals(object obj)
@@ -37,8 +38,8 @@ namespace Generaid
             unchecked
             {
                 return (
-                    Case.GetHashCode(DependentUpon)*397) ^ 
-                    Case.GetHashCode(FullName);
+                    IgnoreCase.GetHashCode(DependentUpon)*397) ^ 
+                    IgnoreCase.GetHashCode(FullName);
             }
         }
 

@@ -161,6 +161,7 @@
   <ItemGroup>
     <Compile Include="ChangeSetFacts.cs" />
     <Compile Include="CsProjExtensions.cs" />
+    <Compile Include="GeneratedBlah\Foo.cs" />
     <Compile Include="HierarchyFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XDocFacts.cs" />

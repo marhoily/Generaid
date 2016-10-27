@@ -23,7 +23,7 @@ namespace Generaid
 
         private static IEnumerable<XElement> FindByDirectory(this XContainer doc, string dir)
             => doc.XPathSelectElements("//ns:ItemGroup/ns:Compile", M)
-                .Where(x => x.Attribute("Include")?.Value.StartsWith(dir) == true);
+                .Where(x => x.Attribute("Include")?.Value.Replace("\\", "/").StartsWith(dir+"/") == true);
 
         private static void Insert(this XContainer doc, string preferredFolder, params CmpNode[] genNodes)
         {
