@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Collections.Generic;
+using FluentAssertions;
 using Xunit;
 
 namespace Generaid
@@ -6,46 +7,51 @@ namespace Generaid
     public sealed class FixerFacts
     {
         [Fact]
-        public void FactMethodName()
+        public void One_Fix()
         {
-            Check("...<>W.cs</>...", "...<>W.g.cs</>...");
+            Check("...<>W.cs</>...", "...<>W.g.cs</>...")
+                .Should().Equal("W.cs");
+        }
+        [Fact]
+        public void One_Fix_One_AlreadyFixed()
+        {
+            Check(
+                "...<>X.g.cs</>...<>W.cs</>...",
+                "...<>X.g.cs</>...<>W.g.cs</>...")
+                .Should().Equal("W.cs");
+
+        }
+        [Fact]
+        public void Two_Fixes()
+        {
+            Check(
+                "...<>A.cs</>...<>B.cs</>...",
+                "...<>A.g.cs</>...<>B.g.cs</>...")
+                .Should().Equal("A.cs", "B.cs"); 
+        }
+        [Fact]
+        public void No_Close_Tag()
+        {
+            Check("...<>W.cs", "...<>W.cs")
+                .Should().BeEmpty();
+        }
+        [Fact]
+        public void No_Tags()
+        {
+            Check("...", "...").Should().BeEmpty();
         }
 
-        private static void Check(string actual, string expected)
+        private static List<string> Check(string actual, string expected)
         {
-            GeneratorProjectFixer.Fix(Expand(actual)).Should().Be(Expand(expected));
+            var fixResult = GeneratorProjectFixer.Fix(Expand(actual));
+            fixResult.NewText.Should().Be(Expand(expected));
+            return fixResult.Files;
         }
-
         private static string Expand(string actual)
         {
             return actual
                     .Replace("<>", "<LastGenOutput>")
                     .Replace("</>", "</LastGenOutput>");
-        }
-
-        [Fact]
-        public void FactMethodName_3()
-        {
-            Check(
-                "...<>W.g.cs</>...<>W.cs</>...",
-                "...<>W.g.cs</>...<>W.g.cs</>...");
-        }
-        [Fact]
-        public void FactMethodName_4()
-        {
-            Check(
-                "...<>A.cs</>...<>B.cs</>...",
-                "...<>A.g.cs</>...<>B.g.cs</>...");
-        }
-        [Fact]
-        public void FactMethodName2()
-        {
-            Check("...<>W.cs", "...<>W.cs");
-        }
-        [Fact]
-        public void FactMethodName1()
-        {
-            Check("...", "...");
         }
     }
 }

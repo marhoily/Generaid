@@ -1,9 +1,21 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using static System.StringComparison;
 
 namespace Generaid
 {
+    internal sealed class FixResult
+    {
+        public string NewText { get;  }
+        public List<string> Files { get;  }
+
+        public FixResult(string newText, List<string> files)
+        {
+            NewText = newText;
+            Files = files;
+        }
+    }
     /// <summary>Contains a utility that fixes project file of the generator itself</summary>
     public static class GeneratorProjectFixer
     {
@@ -16,43 +28,47 @@ namespace Generaid
         ///     You can go into resharper settings and exclude *.g.cs
         ///     files from analysis
         /// </remarks>
-        public static void FixFrojFile(string file)
+        public static List<string> FixFrojFile(string file)
         {
             var oldText = File.ReadAllText(file);
-            var newText = Fix(oldText);
-            if (oldText != newText)
-                File.WriteAllText(file, newText);
+            var result = Fix(oldText);
+            if (oldText != result.NewText)
+                File.WriteAllText(file, result.NewText);
+            return result.Files;
         }
 
-        internal static string Fix(string input)
+        internal static FixResult Fix(string input)
         {
+            var files = new List<string>();
             var sb = new StringBuilder();
             var curr = 0;
-            var open = input.IndexOf("<LastGenOutput>", curr, StringComparison.Ordinal);
+            var open = input.IndexOf("<LastGenOutput>", curr, Ordinal);
             while (open != -1)
             {
-                var close = input.IndexOf("</LastGenOutput>", open, StringComparison.Ordinal);
+                var close = input.IndexOf("</LastGenOutput>", open, Ordinal);
                 if (close != -1)
                 {
-                    if (input.IndexOf(".g.", open, close - open, StringComparison.Ordinal) == -1)
+                    if (input.IndexOf(".g.", open, close - open, Ordinal) == -1)
                     {
-                        var dot = input.IndexOf(".", open, close - open, StringComparison.Ordinal);
+                        var dot = input.IndexOf(".", open, close - open, Ordinal);
                         if (dot != -1)
                         {
                             sb.Append(input.Substring(curr, dot - curr));
                             sb.Append(".g");
                             curr = dot;
+                            open += "<LastGenOutput>".Length;
+                            files.Add(input.Substring(open, close-open));
                         }
                     }
-                    open = input.IndexOf("<LastGenOutput>", close, StringComparison.Ordinal);
+                    open = input.IndexOf("<LastGenOutput>", close, Ordinal);
                 }
                 else
                 {
-                    open = input.IndexOf("<LastGenOutput>", open + "<LastGenOutput>".Length, StringComparison.Ordinal);
+                    open = input.IndexOf("<LastGenOutput>", open + "<LastGenOutput>".Length, Ordinal);
                 }
             }
             sb.Append(input.Substring(curr, input.Length - curr));
-            return sb.ToString();
+            return new FixResult(sb.ToString(), files);
         }
     }
 }
