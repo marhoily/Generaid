@@ -152,6 +152,21 @@ namespace Generaid
                 ReadAllText(@"c:\proj\sample.proj"));
         }
         [Fact]
+        public void When_Depends_Updon_File_In_Nested_Folder_Should_Not_Reference_It_By_FullName()
+        {
+            foreach (var company in _model.Companies)
+            {
+                company.NeedSubfolder = true;
+                foreach (var employee in company.Employees)
+                    employee.NeedSubfolder = true;
+            }
+
+            _hierarchyBuilder.Generate();
+          
+            Approvals.Verify(_fs.File.
+                ReadAllText(@"c:\proj\sample.proj"));
+        }
+        [Fact]
         public void DoNotGenerate_Should_Work()
         {
             _model.Companies[0].DoNotGenerate = true;

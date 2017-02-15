@@ -24,12 +24,16 @@ namespace Generaid
     {
         public EmployeeGenerator(Employee employee) { _employee = employee; }
         private readonly Employee _employee;
-        public string Name => _employee.Name;
+        public string Name =>
+            (_employee.NeedSubfolder ? @"companies\" : "")
+            + _employee.Name;
+        //public string Name => _employee.Name;
         public string TransformText() => _employee.Name;
     }
     public sealed class Employee
     {
         public string Name { get; }
+        public bool NeedSubfolder { get; set; }
 
         public Employee(string name)
         {

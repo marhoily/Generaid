@@ -47,16 +47,15 @@ namespace Generaid
                         .Attribute("Include")?.Value
                         .StartsWith(preferredFolder)==true))
                 .FirstOrDefault()?
-                .Add(genNodes
-                .Select(Selector
-                ));
+                .Add(genNodes.Select(CreateCompileElement));
         }
 
-        private static XElement Selector(CmpNode n)
+        private static XElement CreateCompileElement(CmpNode n)
         {
             var xElement = new XElement(Ns + "Compile", new XAttribute("Include", n.FullName));
             if (n.DependentUpon != "")
-                xElement.Add(new XElement(Ns + "DependentUpon", n.DependentUpon));
+                xElement.Add(new XElement(Ns + "DependentUpon", 
+                    Path.GetFileName(n.DependentUpon)));
             return xElement;
         }
 
