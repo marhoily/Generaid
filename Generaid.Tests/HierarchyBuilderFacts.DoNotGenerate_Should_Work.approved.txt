@@ -208,6 +208,7 @@
     <Content Include="HierarchyFacts.Expand2.approved.txt">
       <DependentUpon>HierarchyFacts.cs</DependentUpon>
     </Content>
+    <Compile Include="Gene\rated\should-be-cleanud.up" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

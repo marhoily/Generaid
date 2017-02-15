@@ -22,17 +22,22 @@ namespace Generaid
 
         public HierarchyBuilderFacts()
         {
-            _hierarchyBuilder = new HierarchyBuilder(
-                _fs, @"c:\proj\sample.proj", "Generated")
-            {
-                new NodeBuilder<ModelGenerator>(_model)
+            _hierarchyBuilder = CreateHierarchyBuilder("Generated");
+        }
+
+        private HierarchyBuilder CreateHierarchyBuilder(string projectDir)
+        {
+            return new HierarchyBuilder(
+                    _fs, @"c:\proj\sample.proj", projectDir)
                 {
-                    new NodeBuilder<CompanyGenerator>
+                    new NodeBuilder<ModelGenerator>(_model)
                     {
-                        new NodeBuilder<EmployeeGenerator>()
+                        new NodeBuilder<CompanyGenerator>
+                        {
+                            new NodeBuilder<EmployeeGenerator>()
+                        }
                     }
                 }
-            }
                 .With((Model m) => m.Companies)
                 .With((Company c) => c.Employees);
         }
@@ -103,6 +108,28 @@ namespace Generaid
                     @"c:\proj\Generated\Apple",
                     @"c:\proj\Generated\Alice",
                     @"c:\proj\Generated\Bob");
+            Approvals.Verify(_fs.File.
+                ReadAllText(@"c:\proj\sample.proj"));
+        }
+        [Fact]
+        public void Generate_Should_Delete_Old_Files_InThe_Nested_Folder()
+        {
+            var hierarchyBuilder = CreateHierarchyBuilder(@"Gene\rated");
+            _fs.File.WriteAllText(
+                @"c:\proj\Gene\rated\garbadge.txt", "blah");
+            hierarchyBuilder.Generate();
+            _fs.AllFiles
+                .Except(new[] { @"c:\proj\sample.proj" })
+                .Should().BeEquivalentTo(
+                    @"c:\proj\Gene\rated\root",
+                    @"c:\proj\Gene\rated\Microsoft",
+                    @"c:\proj\Gene\rated\John",
+                    @"c:\proj\Gene\rated\Marry",
+                    @"c:\proj\Gene\rated\Apple",
+                    @"c:\proj\Gene\rated\Alice",
+                    @"c:\proj\Gene\rated\Bob");
+            Approvals.Verify(_fs.File.
+                ReadAllText(@"c:\proj\sample.proj"));
         }
         [Fact]
         public void Generate_Should_Respect_Subfolders()
@@ -143,6 +170,5 @@ namespace Generaid
             Approvals.Verify(_fs.File.
                 ReadAllText(@"c:\proj\sample.proj"));
         }
-
     }
 }

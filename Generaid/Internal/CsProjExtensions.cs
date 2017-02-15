@@ -22,8 +22,20 @@ namespace Generaid
             => doc.Element(Ns + "DependentUpon")?.Value;
 
         private static IEnumerable<XElement> FindByDirectory(this XContainer doc, string dir)
-            => doc.XPathSelectElements("//ns:ItemGroup/ns:Compile", M)
-                .Where(x => x.Attribute("Include")?.Value.Replace("\\", "/").StartsWith(dir+"/") == true);
+        {
+            dir = Sanitize(dir);
+            return doc.XPathSelectElements("//ns:ItemGroup/ns:Compile", M)
+                .Where(x => Cmp(dir, x));
+        }
+
+        private static string Sanitize(string str)
+        => str.Replace("\\", "/");
+
+        private static bool Cmp(string dir, XElement x)
+        {
+            var xAttribute = x.Attribute("Include");
+            return xAttribute != null && Sanitize(xAttribute.Value).StartsWith(dir+"/");
+        }
 
         private static void Insert(this XContainer doc, string preferredFolder, params CmpNode[] genNodes)
         {
