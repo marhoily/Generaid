@@ -165,24 +165,12 @@
     <Compile Include="HierarchyFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XDocFacts.cs" />
-    <Compile Include="Generated\root">
-      <DependentUpon></DependentUpon>
-    </Compile>
-    <Compile Include="Generated\John">
-      <DependentUpon></DependentUpon>
-    </Compile>
-    <Compile Include="Generated\Marry">
-      <DependentUpon></DependentUpon>
-    </Compile>
-    <Compile Include="Generated\companies\Apple">
-      <DependentUpon></DependentUpon>
-    </Compile>
-    <Compile Include="Generated\Alice">
-      <DependentUpon></DependentUpon>
-    </Compile>
-    <Compile Include="Generated\Bob">
-      <DependentUpon></DependentUpon>
-    </Compile>
+    <Compile Include="Generated\root" />
+    <Compile Include="Generated\John" />
+    <Compile Include="Generated\Marry" />
+    <Compile Include="Generated\companies\Apple" />
+    <Compile Include="Generated\Alice" />
+    <Compile Include="Generated\Bob" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

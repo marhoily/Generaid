@@ -148,6 +148,8 @@ namespace Generaid
                     @"c:\proj\Generated\Marry",
                     @"c:\proj\Generated\Alice",
                     @"c:\proj\Generated\Bob");
+            Approvals.Verify(_fs.File.
+                ReadAllText(@"c:\proj\sample.proj"));
         }
         [Fact]
         public void DoNotGenerate_Should_Work()

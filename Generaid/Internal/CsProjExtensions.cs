@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -46,10 +47,17 @@ namespace Generaid
                         .Attribute("Include")?.Value
                         .StartsWith(preferredFolder)==true))
                 .FirstOrDefault()?
-                .Add(genNodes.Select(n =>
-                    new XElement(Ns + "Compile",
-                        new XAttribute("Include", n.FullName),
-                        new XElement(Ns + "DependentUpon", n.DependentUpon))));
+                .Add(genNodes
+                .Select(Selector
+                ));
+        }
+
+        private static XElement Selector(CmpNode n)
+        {
+            var xElement = new XElement(Ns + "Compile", new XAttribute("Include", n.FullName));
+            if (n.DependentUpon != "")
+                xElement.Add(new XElement(Ns + "DependentUpon", n.DependentUpon));
+            return xElement;
         }
 
         private static XElement Find(this XContainer doc, CmpNode node) =>

@@ -117,6 +117,7 @@
     </Content>
     <Content Include="HierarchyBuilderFacts.Generate_Should_Delete_Old_Files_InThe_Folder.approved.txt" />
     <Content Include="HierarchyBuilderFacts.Generate_Should_Delete_Old_Files_InThe_Nested_Folder.approved.txt" />
+    <Content Include="HierarchyBuilderFacts.Generate_Should_Respect_Subfolders.approved.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

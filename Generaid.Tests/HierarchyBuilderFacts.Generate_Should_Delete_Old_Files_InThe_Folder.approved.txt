@@ -165,9 +165,7 @@
     <Compile Include="HierarchyFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XDocFacts.cs" />
-    <Compile Include="Generated\root">
-      <DependentUpon></DependentUpon>
-    </Compile>
+    <Compile Include="Generated\root" />
     <Compile Include="Generated\Microsoft">
       <DependentUpon>root</DependentUpon>
     </Compile>

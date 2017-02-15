@@ -161,51 +161,17 @@
   <ItemGroup>
     <Compile Include="ChangeSetFacts.cs" />
     <Compile Include="CsProjExtensions.cs" />
-    <Compile Include="Generated\ChangeSet.cs" />
-    <Compile Include="Generated\CsSample.City.cs">
-      <DependentUpon>ChangeSet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Generated\CsSample.Person.cs">
-      <DependentUpon>ChangeSet.cs</DependentUpon>
-    </Compile>
     <Compile Include="GeneratedBlah\Foo.cs" />
-    <Compile Include="Generated\DataContext.cs" />
-    <Compile Include="Generated\Sample.City.cs" />
-    <Compile Include="Generated\Sample.City.key.cs">
-      <DependentUpon>Sample.City.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Generated\Sample.Person.cs" />
-    <Compile Include="Generated\Sample.Person.key.cs">
-      <DependentUpon>Sample.Person.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Generated\TableSample.City.cs">
-      <DependentUpon>Sample.City.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Generated\TableSample.Person.cs">
-      <DependentUpon>Sample.Person.cs</DependentUpon>
-    </Compile>
     <Compile Include="HierarchyFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XDocFacts.cs" />
-    <Compile Include="Gene\rated\root" />
-    <Compile Include="Gene\rated\Microsoft">
-      <DependentUpon>root</DependentUpon>
-    </Compile>
-    <Compile Include="Gene\rated\John">
-      <DependentUpon>Microsoft</DependentUpon>
-    </Compile>
-    <Compile Include="Gene\rated\Marry">
-      <DependentUpon>Microsoft</DependentUpon>
-    </Compile>
-    <Compile Include="Gene\rated\Apple">
-      <DependentUpon>root</DependentUpon>
-    </Compile>
-    <Compile Include="Gene\rated\Alice">
-      <DependentUpon>Apple</DependentUpon>
-    </Compile>
-    <Compile Include="Gene\rated\Bob">
-      <DependentUpon>Apple</DependentUpon>
-    </Compile>
+    <Compile Include="Generated\root" />
+    <Compile Include="Generated\companies\Microsoft" />
+    <Compile Include="Generated\John" />
+    <Compile Include="Generated\Marry" />
+    <Compile Include="Generated\companies\Apple" />
+    <Compile Include="Generated\Alice" />
+    <Compile Include="Generated\Bob" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -231,7 +197,7 @@
     <Content Include="HierarchyFacts.Expand2.approved.txt">
       <DependentUpon>HierarchyFacts.cs</DependentUpon>
     </Content>
-    <Compile Include="Generated\should-be-cleanud.up" />
+    <Compile Include="Gene\rated\should-be-cleanud.up" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
